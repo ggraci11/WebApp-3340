@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Web App: To-Do List</title>
@@ -9,33 +9,39 @@
 
 <body class="bg-light">
 
-    <!-- includes navbar -->
+    <!-- Navbar -->
     {% include 'navbar.html' %}
 
-    <div class="container mt-5">
-        <div class="card-body">
-            <h1 class="card-title text-center mb-4">My To-Do List</h1>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">My To-Do List</h2>
 
-            <!-- Form to add a task -->
-            <form method="post" class="d-flex mb-4">
-                {% csrf_token %}
-                <input type="text" name="title" class="form-control me-2" placeholder="Enter Task">
-                <button type="submit" class="btn btn-success">Add</button>
-            </form>
+                        <!-- Form to add a task -->
+                        <form method="post" class="d-flex mb-4">
+                            {% csrf_token %}
+                            <input type="text" name="title" class="form-control me-2" placeholder="Enter a task" required>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
 
-            <!-- Task List -->
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Buy groceries
-                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Finish Django project
-                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
-                </li>
-            </ul>
+                        <!-- Task List -->
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Buy groceries
+                                <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Finish Django project
+                                <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    </body>
+</body>
 </html>
