@@ -5,17 +5,25 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
 @login_required
 def home_view(request):
     if request.method == 'POST':
-        if 'title' in request.POST:
-            title = request.POST['title']
-            if title.strip():  # Only save if not empty
-                Task.objects.create(user=request.user, title=title)
-            return redirect('home')
+        title = request.POST.get('title', '').strip()
+        description = request.POST.get('description', '').strip()
+        due_date = request.POST.get('due_date', None)
+
+        if title:
+            Task.objects.create(
+                user=request.user,
+                title=title,
+                description=description,
+                due_date=due_date if due_date else None
+            )
+        return redirect('home')
 
     tasks = Task.objects.filter(user=request.user)
 
@@ -26,6 +34,21 @@ def delete_task(request, task_id):
     task = Task.objects.get(id=task_id, user=request.user)
     task.delete()
     return redirect('home')
+
+@login_required
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+
+    if request.method == 'POST':
+        task.title = request.POST.get('title', '').strip()
+        task.description = request.POST.get('description', '').strip()
+        due_date = request.POST.get('due_date', None)
+        task.due_date = due_date if due_date else None
+        task.save()
+        return redirect('home')
+
+    return render(request, 'edit_task.html', {'task': task})
+
 
 def logout_view(request):
     logout(request)
