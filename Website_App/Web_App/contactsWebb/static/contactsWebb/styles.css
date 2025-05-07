@@ -1,0 +1,50 @@
+/* Hide the native checkbox */
+.custom-checkbox {
+  display: none;
+}
+
+/* Style the label as a bordered button */
+.custom-label {
+  display: inline-block;
+  padding: 5px 12px;
+  background-color: transparent;
+  color: #3498db;
+  border: 1px solid #3498db;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: 31px;
+  position: relative;
+  top: 3px; /* ⬅️ Move text down inside the label box */
+}
+
+
+/* Hover effect */
+.custom-label:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+/* When checkbox is checked */
+.custom-checkbox:checked + .custom-label {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+  color: white;
+}
+
+/* Change the text when checkbox is checked */
+.custom-checkbox:checked + .custom-label .checkbox-text {
+  content: "Completed";
+}
+
+/* Change the text when checkbox is unchecked */
+.custom-checkbox:not(:checked) + .custom-label .checkbox-text {
+  content: "Uncomplete";
+}
+
+/* Initial text */
+.checkbox-text {
+  content: "Uncomplete";
+}
