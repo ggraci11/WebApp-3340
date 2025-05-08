@@ -41,10 +41,10 @@
 
 /* Change the text when checkbox is unchecked */
 .custom-checkbox:not(:checked) + .custom-label .checkbox-text {
-  content: "Uncomplete";
+  content: "Incomplete";
 }
 
 /* Initial text */
 .checkbox-text {
-  content: "Uncomplete";
+  content: "Incomplete";
 }
