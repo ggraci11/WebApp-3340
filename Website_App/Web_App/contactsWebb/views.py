@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -120,3 +123,15 @@ def register_view(request):
         return redirect('login')  # Redirect back to login after registration
 
     return render(request, 'register.html')
+
+@csrf_exempt
+def update_task_status(request, task_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        try:
+            task = Task.objects.get(id=task_id)
+            task.completed = data.get('completed', False)
+            task.save()
+            return JsonResponse({'success': True})
+        except Task.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Task not found'})
